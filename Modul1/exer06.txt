@@ -1,0 +1,65 @@
+Let's evaluate each statement given the values:
+
+a = 2, b = 4, and c = 6.
+
+(a) a == 4 or b > 2
+
+First part: a == 4 → False (since a is 2, not 4)
+Second part: b > 2 → True (since 4 is greater than 2) Overall: False OR True → True
+(b) 6 <= c and a > 3
+
+First part: 6 <= c → True (since c is 6)
+Second part: a > 3 → False (since 2 is not greater than 3) Overall: True AND False → False
+(c) not(a > 2)
+
+a > 2 → False (since 2 is not greater than 2) Overall: not(False) → True
+(d) 1 != b and c != 3
+
+First part: 1 != b → True (since 1 is not equal to 4)
+Second part: c != 3 → True (since 6 is not equal to 3) Overall: True AND True → True
+(e) a >= -1 or a <= b
+
+First part: a >= -1 → True (since 2 is greater than -1)
+Second part: a <= b → True (since 2 is less than or equal to 4) Overall: True OR True → True
+(f) not(c == 6 and not(a >= b))
+
+First part: c == 6 → True (since c is 6)
+Second part: not(a >= b) → True (since 2 is not greater than or equal to 4) Overall inside the parentheses: True AND True → True Then: not(True) → False
+Results: (a) True
+(b) False
+(c) True
+(d) True
+(e) True
+(f) False
+
+Here's a Python program that prompts the user for three integer values and then evaluates the six conditions as mentioned before:
+
+def evaluate_statements(a, b, c):
+    results = []
+    results.append(a == 4 or b > 2)
+    results.append(6 <= c and a > 3)
+    results.append(not(a > 2))
+    results.append(1 != b and c != 3)
+    results.append(a >= -1 or a <= b)
+    results.append(not(c == 6 and not(a >= b)))
+
+    return results
+
+def main():
+    # Get the three integers from the user
+    a = int(input("Enter the value for a: "))
+    b = int(input("Enter the value for b: "))
+    c = int(input("Enter the value for c: "))
+
+    # Evaluate the statements
+    results = evaluate_statements(a, b, c)
+
+    # Display the results
+    print("\nResults:")
+    for i, result in enumerate(results, start=1):
+        print(f"Statement ({chr(96+i)}): {result}")
+
+if __name__ == "__main__":
+    main()
+
+When you run the program, it will prompt you for the values of a, b, and c. After entering the numbers, the program will display whether each of the six statements is true or false.

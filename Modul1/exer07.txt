@@ -1,0 +1,25 @@
+Let's break down the expressions based on the given list myList = [2, 5, 9, 13, 27, 33].
+
+(a) myList[0]
+This will return the first element of the list. Guess: 2
+
+(b) myList[2]
+This will return the third element of the list (since list indexing starts at 0). Guess: 9
+
+(c) myList[2:3]
+This is list slicing, which will return a sublist starting from index 2 up to (but not including) index 3. Guess: [9]
+
+(d) myList[-1]
+Negative indexing starts from the end of the list. -1 refers to the last element. Guess: 33
+
+Let's now test these in Python:
+
+      myList = [2, 5, 9, 13, 27, 33]
+
+print(myList[0])   # Expected output: 2
+print(myList[2])   # Expected output: 9
+print(myList[2:3]) # Expected output: [9]
+print(myList[-1])  # Expected output: 33
+
+
+Running the above code will confirm the guessed results.

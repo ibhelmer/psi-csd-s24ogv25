@@ -1,0 +1,48 @@
+I'll use a for loop in this example, as it is more concise and idiomatic for this kind of operation in Python:
+
+def main():
+    myList = [2, 5, 9, 13, 27, 33]
+
+    # Iterate through the list using a for loop
+    for i, value in enumerate(myList):
+        print(f"The element at position {i} is {value}")
+
+if __name__ == "__main__":
+    main()
+
+
+The enumerate function provides both the index (i) and the value (value) of each element in the list as you iterate. This makes it easy to print out both the position and the value for each element in the list.
+
+For good measure here's the same program using a while loop:
+
+def main():
+    myList = [2, 5, 9, 13, 27, 33]
+
+    # Initialize the index counter
+    index = 0
+
+    # Iterate through the list using a while loop
+    while index < len(myList):
+        print(f"The element at position {index} is {myList[index]}")
+        index += 1
+
+if __name__ == "__main__":
+    main()
+
+
+In this version, we have to manually manage the index counter index and increment it on each iteration through the loop.
+
+Python's for loop can also act as a "for-each" loop by iterating directly over the elements of a list. However, if you want to also know the index of each element (as required by your desired output), you'll still need to use the enumerate() function. Here's how you can do it:
+
+      def main():
+    myList = [2, 5, 9, 13, 27, 33]
+
+    # Iterate through the list using a for-each loop with enumerate
+    for index, value in enumerate(myList):
+        print(f"The element at position {index} is {value}")
+
+if __name__ == "__main__":
+    main()
+
+
+The loop directly iterates over each element of myList, and enumerate() provides the position (or index) of each element. This is actually similar to the first for loop example I gave, and this style is quite idiomatic in Python. It combines the element-by-element iteration of a "for-each" loop with the ability to also get the index, making it a powerful and concise way to work with lists.

@@ -1,0 +1,171 @@
+<!DOCTYPE html []>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="author" content="MarkdownViewer++" />
+    <title>hands-on-exercises-indicative-solutions.md</title>
+    <style type="text/css">
+            
+/* Avoid page breaks inside the most common attributes, especially for exports (i.e. PDF) */
+td, h1, h2, h3, h4, h5, p, ul, ol, li {
+    page-break-inside: avoid; 
+}
+
+        </style>
+  </head>
+  <body>
+    <h1 id="indicative-solutions-for-hands-on-exercises">Indicative Solutions for Hands-on Exercises</h1>
+    <p>In this section, we present indicative solutions for the hands-on exercises that you've encountered in our IT Security and Database Connectivity course. These solutions are designed to provide you with a clear understanding of how to address each exercise's objectives and challenges.</p>
+    <p>As you explore these solutions, remember that practical learning through hands-on exercises is an essential aspect of mastering IT security, database connectivity, and data modeling. The solutions presented here offer a reference point to guide you in completing the exercises effectively.</p>
+    <p>Feel free to adapt and modify these solutions to align with your specific environment and requirements. Practical experience and experimentation are key to gaining proficiency in these essential skills.</p>
+    <p>Let's dive into the indicative solutions for each exercise, starting with Exercise 1, where we'll set up the database and tables for "BookWorms Inc." Enjoy the journey of hands-on learning, and leverage these solutions as valuable learning tools.</p>
+    <h2 id="exercise-1-database-setup-creating-tables-and-setting-up-a-mariadb-database">Exercise 1: Database Setup - Creating Tables and Setting Up a MariaDB Database</h2>
+    <pre>
+      <code class="language-sql">-- Create the BookstoreDB database
+CREATE DATABASE IF NOT EXISTS BookstoreDB;
+
+-- Use the BookstoreDB database
+USE BookstoreDB;
+
+-- Create the 'books' table
+CREATE TABLE IF NOT EXISTS books (
+    ISBN VARCHAR(13) PRIMARY KEY,
+    title VARCHAR(255),
+    author_id INT,
+    price DECIMAL(10, 2),
+    -- Add other columns as needed
+);
+
+-- Create the 'authors' table
+CREATE TABLE IF NOT EXISTS authors (
+    author_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255),
+    birthdate DATE,
+    -- Add other columns as needed
+);
+
+-- Create the 'orders' table
+CREATE TABLE IF NOT EXISTS orders (
+    order_id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT,
+    book_id VARCHAR(13),
+    quantity INT,
+    order_date DATE,
+    -- Add other columns as needed
+);
+</code>
+    </pre>
+    <h2 id="exercise-2-connecting-to-mariadb-python-database-connection">Exercise 2: Connecting to MariaDB - Python Database Connection</h2>
+    <p>Python Code to Connect to MariaDB:</p>
+    <pre>
+      <code class="language-python">import mysql.connector
+
+# Database configuration
+db_config = {
+    "host": "localhost",
+    "user": "your_username",
+    "password": "your_password",
+    "database": "BookstoreDB",
+}
+
+# Establish a connection
+try:
+    connection = mysql.connector.connect(**db_config)
+    if connection.is_connected():
+        print("Connected to MariaDB!")
+    else:
+        print("Connection failed.")
+except Exception as e:
+    print(f"Error: {e}")
+finally:
+    # Close the connection
+    if connection.is_connected():
+        connection.close()
+        print("Connection closed.")
+</code>
+    </pre>
+    <h2 id="exercise-3-data-manipulation-insert-update-and-delete-operations">Exercise 3: Data Manipulation - Insert, Update, and Delete Operations</h2>
+    <p>Python Code for Data Manipulation:</p>
+    <pre>
+      <code class="language-python">import mysql.connector
+
+# Database configuration
+db_config = {
+    "host": "localhost",
+    "user": "your_username",
+    "password": "your_password",
+    "database": "BookstoreDB",
+}
+
+# Establish a connection
+connection = mysql.connector.connect(**db_config)
+
+# Create a cursor object
+cursor = connection.cursor()
+
+# Insert a new book record
+insert_book_query = "INSERT INTO books (ISBN, title, author_id, price) VALUES (%s, %s, %s, %s)"
+book_data = ("978-0451524935", "To Kill a Mockingbird", 1, 12.99)
+cursor.execute(insert_book_query, book_data)
+
+# Update the price of a book
+update_price_query = "UPDATE books SET price = %s WHERE ISBN = %s"
+new_price = 14.99
+book_isbn = "978-0451524935"
+cursor.execute(update_price_query, (new_price, book_isbn))
+
+# Delete a book record
+delete_book_query = "DELETE FROM books WHERE ISBN = %s"
+book_isbn_to_delete = "978-0451524935"
+cursor.execute(delete_book_query, (book_isbn_to_delete,))
+
+# Commit changes
+connection.commit()
+
+# Close cursor and connection
+cursor.close()
+connection.close()
+</code>
+    </pre>
+    <h2 id="exercise-4-data-retrieval-retrieving-and-displaying-data">Exercise 4: Data Retrieval - Retrieving and Displaying Data</h2>
+    <p>Python Code for Data Retrieval:</p>
+    <pre>
+      <code class="language-python">import mysql.connector
+
+# Database configuration
+db_config = {
+    "host": "localhost",
+    "user": "your_username",
+    "password": "your_password",
+    "database": "BookstoreDB",
+}
+
+# Establish a connection
+connection = mysql.connector.connect(**db_config)
+
+# Create a cursor object
+cursor = connection.cursor()
+
+# Retrieve and display top-selling books
+top_selling_books_query = """
+SELECT b.title, COUNT(o.book_id) AS copies_sold
+FROM books b
+LEFT JOIN orders o ON b.ISBN = o.book_id
+GROUP BY b.title
+ORDER BY copies_sold DESC
+LIMIT 10;
+"""
+cursor.execute(top_selling_books_query)
+
+print("Top-Selling Books:")
+for (title, copies_sold) in cursor:
+    print(f"{title}: {copies_sold} copies sold")
+
+# Close cursor and connection
+cursor.close()
+connection.close()
+</code>
+    </pre>
+    <p>These indicative solutions provide the SQL queries and Python code to perform the tasks outlined in each exercise. Keep in mind that you should customize the code with your own database credentials and specific data as needed.</p>
+  </body>
+</html>
